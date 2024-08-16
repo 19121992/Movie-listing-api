@@ -1,4 +1,4 @@
-from pydantic import BaseModel 
+from pydantic import BaseModel
 
 class UserBase(BaseModel):
     username: str
@@ -12,5 +12,4 @@ class User(UserBase):
     is_active: bool
 
     class Config:
-        orm_mode = True 
-
+        orm_mode = True

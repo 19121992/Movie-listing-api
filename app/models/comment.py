@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String, ForeignKey  # type: ignore
-from sqlalchemy.orm import relationship # type: ignore
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 from app.database import Base
 
 class Comment(Base):
@@ -13,5 +13,7 @@ class Comment(Base):
 
     movie = relationship("Movie", back_populates="comments")
     user = relationship("User", back_populates="comments")
-    children = relationship("Comment", back_populates="parent", remote_side=[id])
-    parent = relationship("Comment", back_populates="children", remote_side=[id]) 
+    
+    # Setting up the parent-child relationship for nested comments
+    children = relationship("Comment", back_populates="parent", cascade="all, delete-orphan")
+    parent = relationship("Comment", back_populates="children", remote_side=[id])

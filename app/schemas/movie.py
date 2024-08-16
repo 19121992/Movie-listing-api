@@ -1,11 +1,14 @@
-from pydantic import BaseModel 
+from pydantic import BaseModel
+from typing import Optional
 
 class MovieBase(BaseModel):
     title: str
-    description: str
+    description: Optional[str] = None  # Make description optional here
 
 class MovieCreate(MovieBase):
-    pass
+    director: str
+    release_year: int
+    genre: str
 
 class Movie(MovieBase):
     id: int
@@ -13,5 +16,3 @@ class Movie(MovieBase):
 
     class Config:
         orm_mode = True
-
-

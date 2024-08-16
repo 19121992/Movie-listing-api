@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey 
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -7,9 +7,12 @@ class Movie(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
-    description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("users.id"))
+    director = Column(String)
+    release_year = Column(Integer)
+    genre = Column(String)
+    description = Column(String, nullable=True)
+    owner_id = Column(Integer, ForeignKey('users.id'), nullable=False)
 
     owner = relationship("User", back_populates="movies")
-    ratings = relationship("Rating", back_populates="movie")
-    comments = relationship("Comment", back_populates="movie") 
+    ratings = relationship("Rating", back_populates="movie", cascade="all, delete-orphan")
+    comments = relationship("Comment", back_populates="movie", cascade="all, delete-orphan")
