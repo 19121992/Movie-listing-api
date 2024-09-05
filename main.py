@@ -19,3 +19,7 @@ app.include_router(comment.router, prefix="/comments", tags=["comments"])
 
 # Initialize database tables
 Base.metadata.create_all(bind=engine)
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the Movie Listing App"}
